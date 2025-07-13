@@ -39,7 +39,11 @@ function bindEvents() {
   );
 
   mobileGenerateBtn.addEventListener("click", () => {
-    form.requestSubmit();
+    form.requestSubmit(); try {
+      form.requestSubmit();
+    } catch (e) {
+      form.submit(); // fallback untuk Safari
+    }
     if (window.innerWidth <= 768) {
       configPanel.classList.remove("open");
       overlay.classList.remove("show");
