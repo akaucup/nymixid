@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Data Generator</title>
+    <link rel="stylesheet" href="./assets/css/mainstyle.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
+    <script>
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark-mode");
+        document.addEventListener("DOMContentLoaded", () => {
+          const toggleBtn = document.getElementById("theme-toggle");
+          if (toggleBtn) toggleBtn.textContent = "☀️";
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1>Generate Random Data</h1>
+      <div class="top-actions mobile-only">
+        <button id="toggle-config" class="config-toggle" title="Konfigurasi">
+          ⚙️
+        </button>
+        <button id="generate-mobile" class="generate-mobile-btn">
+          🔁 Generate
+        </button>
+      </div>
+
+      <div class="layout">
+        <!-- 🔧 Panel Konfigurasi -->
+        <div class="config-panel">
+          <form id="generator-form">
+            <!-- Ini akan muncul di desktop saja -->
+            <button type="submit" class="desktop-only">Generate</button>
+            <button type="button" id="reset-data">Reset</button>
+
+            <!-- Region -->
+            <label for="region">Region:</label>
+            <select id="region" name="region">
+              <option value="id">Indonesia</option>
+              <option value="us">United States</option>
+              <option value="de">Germany</option>
+            </select>
+
+            <!-- Gender -->
+            <label for="gender">Jenis Kelamin:</label>
+            <select id="gender" name="gender">
+              <option value="random">Acak</option>
+              <option value="male">Laki-laki</option>
+              <option value="female">Perempuan</option>
+            </select>
+
+            <!-- Count -->
+            <label for="count">Jumlah Data (max 50):</label>
+            <input
+              type="number"
+              id="count"
+              name="count"
+              min="1"
+              max="50"
+              value="1"
+            />
+
+            <!-- Min Age -->
+            <label for="min-age">Minimal Umur:</label>
+            <input
+              type="number"
+              id="min-age"
+              name="min-age"
+              min="0"
+              max="120"
+            />
+
+            <!-- Birthdate Range -->
+            <label>Range Tanggal Lahir:</label>
+            <div class="birth-range">
+              <input type="date" id="birth-start" name="birth-start" />
+              <span class="to-text">to</span>
+              <input type="date" id="birth-end" name="birth-end" />
+            </div>
+
+            <!-- Password -->
+            <label for="pass-length">Max Password:</label>
+            <input
+              type="number"
+              id="pass-length"
+              name="pass-length"
+              min="6"
+              value="8"
+            />
+
+            <label>
+              <input type="checkbox" id="pass-symbol" name="pass-symbol" />
+              Gunakan simbol spesial
+            </label>
+          </form>
+          <button
+            id="theme-toggle"
+            title="Toggle Dark Mode"
+            aria-label="Toggle Dark Mode"
+          >
+            🌙
+          </button>
+        </div>
+
+        <!-- 📋 Panel Output -->
+        <div class="output-panel">
+          <h3>Data Terbaru</h3>
+          <div id="recent-output"></div>
+
+          <h3>Riwayat Generate</h3>
+          <input
+            type="text"
+            id="history-search"
+            placeholder="Cari username..."
+          />
+          <div id="history-output" class="scrollable-box"></div>
+
+          <!-- Export Buttons -->
+          <div id="export-buttons">
+            <button id="export-json">Export JSON</button>
+            <button id="export-txt">Export TXT</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>Dibuat dengan ❤️ oleh nymix</p>
+    </footer>
+    <div class="overlay" id="config-overlay"></div>
+
+    <!-- Modal Form Tambahan -->
+    <div id="extra-form-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <form id="extra-form">
+          <h3>Info Tambahan</h3>
+          <input type="hidden" name="username" />
+
+          <label for="extra-email">Email</label>
+          <input type="email" name="email" id="extra-email" />
+
+          <label for="extra-totp">Secret Key</label>
+          <input type="text" name="totpService" id="extra-totp" />
+
+          <label for="extra-notes">Catatan</label>
+          <textarea name="notes" id="extra-notes"></textarea>
+
+          <div class="form-actions">
+            <button type="submit">💾 Simpan</button>
+            <button type="button" id="cancel-extra">❌ Batal</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="confirm-modal" class="confirm-modal hidden">
+      <div class="confirm-box">
+        <p id="confirm-text">Yakin ingin menghapus data ini?</p>
+        <div class="confirm-actions">
+          <button id="confirm-yes">Hapus</button>
+          <button id="confirm-no">Batal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script dependencies -->
+    <script src="./assets/name/names_id.js" defer></script>
+    <script src="./assets/name/names_us.js" defer></script>
+    <script src="./assets/name/names_de.js" defer></script>
+    <script src="./assets/script/app.js" defer></script>
+  </body>
+</html>
