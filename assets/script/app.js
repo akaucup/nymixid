@@ -194,6 +194,8 @@ function deleteEntryByUsername(username) {
 
 // ───── Form Handling ─────
 function handleFormSubmit(e) {
+  
+  console.log("Form submitted"); // debug
   e.preventDefault();
 
   const formData = new FormData(form);
